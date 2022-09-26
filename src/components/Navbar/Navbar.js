@@ -5,12 +5,12 @@ const Navbar = () => {
 		<nav className="flex-container">
 			<h1 className="log-title">BebidasNow</h1>
 			<div className="topnav">
-				<a className="active" href="#home">
+				<a className="active" href="#">
 					Bebidas
 				</a>
-				<a href="#news">Snacks</a>
-				<a href="#contact">Contactenos</a>
-				<a href="#about">About</a>
+				<a href="#">Snacks</a>
+				<a href="#">Contactenos</a>
+				<a href="#">Quienes somos</a>
 			</div>
 		</nav>
 	);
