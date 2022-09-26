@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+import Nabvar from './components/Navbar/Navbar';
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>Bienvenidos a Bebidas Now</p>
-			</header>
+			<Nabvar />
+			<h1>Bienvenidos a BebidasNow</h1>
 		</div>
 	);
 }
