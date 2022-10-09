@@ -1,11 +1,12 @@
 import './App.css';
 import Nabvar from './components/Navbar/Navbar';
+import Welcome from './components/Welcome/Welcome';
 
 function App() {
 	return (
 		<div className="App">
 			<Nabvar />
-			<h1>Bienvenidos a BebidasNow</h1>
+			<Welcome name="BebidasNow" />
 		</div>
 	);
 }
