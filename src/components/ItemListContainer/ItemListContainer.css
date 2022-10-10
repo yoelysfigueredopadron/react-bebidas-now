@@ -1,0 +1,11 @@
+.titulo {
+	color: #4caf50;
+	font-weight: bold;
+}
+
+.div-list-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
