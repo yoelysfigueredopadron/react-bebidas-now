@@ -1,6 +1,6 @@
 import './ItemCount.css';
-import '../Button/Button.css';
 import { useState } from 'react';
+import Button from '../Button/Button';
 
 const ItemCount = () => {
 	const [count, setCount] = useState(0);
@@ -39,18 +39,10 @@ const ItemCount = () => {
 		<div className="div-counter">
 			<h1>{title}</h1>
 			<div className="flex-container-counter">
-				<button className="button" onClick={decrement}>
-					{' '}
-					-{' '}
-				</button>
+				<Button children={'-'} func={decrement} />
 				<h2>{count}</h2>
-				<button className="button" onClick={increment}>
-					{' '}
-					+{' '}
-				</button>
-				<button className="button" onClick={handleOnAdd} disabled={disabled}>
-					Agregar al carrito
-				</button>
+				<Button children={'+'} func={increment} />
+				<Button children="Agregar al carrito" func={handleOnAdd} desabilitado={disabled} />
 			</div>
 		</div>
 	);
