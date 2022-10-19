@@ -27,7 +27,7 @@ const ItemListContainer = () => {
 	}, [categoryId]);
 
 	if (loading) {
-		// to do spinner
+		// to do spinner soon
 		return <h1>Loading ...</h1>;
 	}
 
