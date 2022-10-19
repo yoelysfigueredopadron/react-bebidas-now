@@ -1,23 +1,30 @@
 import './ItemListContainer.css';
 import { useState, useEffect } from 'react';
-import { getProducts } from '../../asyncMock';
+import { getProducts, getProductByCategory } from '../../asyncMock';
 import ItemList from '../ItemList/ItemList';
-import ItemCount from '../ItemCount/ItemCount';
+import { useParams } from 'react-router-dom';
 
-const ItemListContainer = ({ name }) => {
+const ItemListContainer = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const { categoryId } = useParams();
 
 	useEffect(() => {
-		getProducts()
+		setLoading(true);
+
+		const asyncFuntionSwitch = categoryId ? getProductByCategory : getProducts;
+
+		asyncFuntionSwitch(categoryId)
 			.then((response) => {
-				// console.log(response);
 				setProducts(response);
+			})
+			.catch((error) => {
+				console.log(error);
 			})
 			.finally(() => {
 				setLoading(false);
 			});
-	}, []);
+	}, [categoryId]);
 
 	if (loading) {
 		// to do spinner
@@ -26,10 +33,10 @@ const ItemListContainer = ({ name }) => {
 
 	return (
 		<div className="div-list-container">
-			<ItemCount />
 			<h1>
-				Bienvenidos a <span className="titulo">{name}</span>
+				Bienvenidos a <span className="titulo">BebidasNow</span>
 			</h1>
+			<h2>Sección de productos</h2>
 			<ItemList products={products} />
 		</div>
 	);
