@@ -1,11 +1,9 @@
 import './ItemCount.css';
 import { useState } from 'react';
-import Button from '../Button/Button';
 
-const ItemCount = () => {
-	const [count, setCount] = useState(0);
-	const [title] = useState('Contador');
-	const [disabled, setDisabled] = useState(true);
+const ItemCount = ({ inicial = 1 }) => {
+	const [count, setCount] = useState(inicial);
+	const [disabled, setDisabled] = useState(false);
 
 	const increment = () => {
 		if (count < 5) {
@@ -36,14 +34,19 @@ const ItemCount = () => {
 	};
 
 	return (
-		<div className="div-counter">
-			<h1>{title}</h1>
+		<div className="container-counter">
 			<div className="flex-container-counter">
-				<Button children={'-'} func={decrement} />
+				<button children={'-'} onClick={decrement} className="button" style={{ margin: '5px 20px' }} />
 				<h2>{count}</h2>
-				<Button children={'+'} func={increment} />
-				<Button children="Agregar al carrito" func={handleOnAdd} desabilitado={disabled} />
+				<button children={'+'} onClick={increment} className="button" style={{ margin: '5px 20px' }} />
 			</div>
+			<button
+				children="Agregar al carrito"
+				onClick={handleOnAdd}
+				className="button"
+				disabled={disabled}
+				style={{ margin: '5px 20px' }}
+			/>
 		</div>
 	);
 };

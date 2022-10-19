@@ -1,9 +1,13 @@
 .flex-container-counter {
-	background-color: rgba(178, 178, 177, 0.897);
+	align-items: center;
 	display: flex;
 	justify-content: center;
 }
 
-.div-counter {
-	width: 38%;
+.container-counter {
+	background-color: rgba(178, 178, 177, 0.897);
 }
+
+/* .div-counter {
+	width: 38%;
+} */
