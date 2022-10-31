@@ -1,12 +1,12 @@
 import './ItemCount.css';
 import { useState } from 'react';
 
-const ItemCount = ({ inicial = 1 }) => {
+const ItemCount = ({ stock = 0, inicial = 1, onAdd }) => {
 	const [count, setCount] = useState(inicial);
 	const [disabled, setDisabled] = useState(false);
 
 	const increment = () => {
-		if (count < 5) {
+		if (count < stock) {
 			setCount(count + 1);
 			setDisabled(false);
 		} else {
@@ -25,14 +25,6 @@ const ItemCount = ({ inicial = 1 }) => {
 		}
 	};
 
-	const handleOnAdd = () => {
-		let mensaje;
-		count === 1
-			? (mensaje = `Se agrego ${count} producto al carrito.`)
-			: (mensaje = `Se agrego ${count} productos al carrito.`);
-		console.log(mensaje);
-	};
-
 	return (
 		<div className="container-counter">
 			<div className="flex-container-counter">
@@ -42,7 +34,7 @@ const ItemCount = ({ inicial = 1 }) => {
 			</div>
 			<button
 				children="Agregar al carrito"
-				onClick={handleOnAdd}
+				onClick={() => onAdd(count)}
 				className="button"
 				disabled={disabled}
 				style={{ margin: '5px 20px' }}

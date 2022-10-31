@@ -5,7 +5,7 @@ import ItemDetail from '../ItemDetail/ItemDetail';
 import { useParams } from 'react-router-dom';
 // import { DotSpinner } from '@uiball/loaders' //agregando spinner
 
-function ItemDetailContainer() {
+function ItemDetailContainer(setCart) {
 	const [product, setProduct] = useState({});
 	const [loading, setLoading] = useState(true);
 	const { productId } = useParams();
