@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
 	return (
 		<nav className="flex-container-navbar">
-			<Link to={'/'}>
+			<Link to={'/'} style={{ textDecoration: 'none' }}>
 				<h1 className="log-title">BebidasNow</h1>
 			</Link>
 			<div className="topnav">

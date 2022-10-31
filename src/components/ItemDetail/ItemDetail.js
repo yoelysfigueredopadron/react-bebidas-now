@@ -1,6 +1,10 @@
 import ItemCount from '../ItemCount/ItemCount';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
 
 function ItemDetail({ id, name, img, category, description, price, stock }) {
+	const { addItem } = useContext(CartContext);
+
 	const handleOnAdd = (quantity) => {
 		const productToAdd = {
 			id,
@@ -8,7 +12,8 @@ function ItemDetail({ id, name, img, category, description, price, stock }) {
 			price,
 			quantity
 		};
-		console.log(productToAdd);
+
+		addItem(productToAdd);
 	};
 
 	return (
