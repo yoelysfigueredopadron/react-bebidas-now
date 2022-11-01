@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import { getProducts, getProductByCategory } from '../../asyncMock';
 import ItemList from '../ItemList/ItemList';
 import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { NotificationContext } from '../../notification/NotificationService';
 
 const ItemListContainer = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const { categoryId } = useParams();
+	const { setNotification } = useContext(NotificationContext);
 
 	useEffect(() => {
 		setLoading(true);
@@ -19,7 +22,7 @@ const ItemListContainer = () => {
 				setProducts(response);
 			})
 			.catch((error) => {
-				console.log(error);
+				setNotification('error', `Ha ocurrido un error. ${error}`);
 			})
 			.finally(() => {
 				setLoading(false);
