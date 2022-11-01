@@ -1,9 +1,11 @@
 import ItemCount from '../ItemCount/ItemCount';
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
+import { NotificationContext } from '../../notification/NotificationService';
 
 function ItemDetail({ id, name, img, category, description, price, stock }) {
 	const { addItem } = useContext(CartContext);
+	const { setNotification } = useContext(NotificationContext);
 
 	const handleOnAdd = (quantity) => {
 		const productToAdd = {
@@ -13,7 +15,14 @@ function ItemDetail({ id, name, img, category, description, price, stock }) {
 			quantity
 		};
 
+		let message;
+
+		quantity === 1
+			? (message = `Se agrego ${quantity} producto ${name} al carrito.`)
+			: (message = `Se agrego ${quantity} productos ${name} al carrito.`);
+
 		addItem(productToAdd);
+		setNotification('success', message);
 	};
 
 	return (
