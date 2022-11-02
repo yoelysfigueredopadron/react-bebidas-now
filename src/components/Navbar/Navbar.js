@@ -9,7 +9,7 @@ const Navbar = () => {
 				<h1 className="log-title">BebidasNow</h1>
 			</Link>
 			<div className="topnav">
-				<Link to={'/category/alcoholicas'} className="button">
+				<Link to={'/category/alcoholica'} className="button">
 					bebidas alcohólicas
 				</Link>
 				<Link to={'/category/sin-alcohol'} className="button">

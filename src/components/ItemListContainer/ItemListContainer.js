@@ -1,10 +1,11 @@
 import './ItemListContainer.css';
 import { useState, useEffect } from 'react';
-import { getProducts, getProductByCategory } from '../../asyncMock';
 import ItemList from '../ItemList/ItemList';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { NotificationContext } from '../../notification/NotificationService';
+import { getDocs, collection, query, where } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 
 const ItemListContainer = () => {
 	const [products, setProducts] = useState([]);
@@ -15,11 +16,19 @@ const ItemListContainer = () => {
 	useEffect(() => {
 		setLoading(true);
 
-		const asyncFuntionSwitch = categoryId ? getProductByCategory : getProducts;
+		const collectionRef = categoryId
+			? query(collection(db, 'products'), where('category', '==', categoryId))
+			: collection(db, 'products');
 
-		asyncFuntionSwitch(categoryId)
+		getDocs(collectionRef)
 			.then((response) => {
-				setProducts(response);
+				const productsAdapted = response.docs.map((document) => {
+					const data = document.data();
+
+					return { id: document.id, ...data };
+				});
+
+				setProducts(productsAdapted);
 			})
 			.catch((error) => {
 				setNotification('error', `Ha ocurrido un error. ${error}`);
