@@ -1,9 +1,10 @@
 import './ItemDetailContainer.css';
 import { useState, useEffect, useContext } from 'react';
-import { getProductById } from '../../asyncMock';
 import ItemDetail from '../ItemDetail/ItemDetail';
 import { useParams } from 'react-router-dom';
 import { NotificationContext } from '../../notification/NotificationService';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 // import { DotSpinner } from '@uiball/loaders' //agregando spinner
 
 function ItemDetailContainer(setCart) {
@@ -13,9 +14,13 @@ function ItemDetailContainer(setCart) {
 	const { setNotification } = useContext(NotificationContext);
 
 	useEffect(() => {
-		getProductById(productId)
+		const documentRef = doc(db, 'products', productId);
+
+		getDoc(documentRef)
 			.then((response) => {
-				setProduct(response);
+				const data = response.data();
+				const productAdapted = { id: response.id, ...data };
+				setProduct(productAdapted);
 			})
 			.catch((error) => {
 				setNotification('error', `Ha ocurrido un error. ${error}`);
