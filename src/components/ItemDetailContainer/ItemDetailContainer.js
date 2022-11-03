@@ -14,6 +14,10 @@ function ItemDetailContainer(setCart) {
 	const { setNotification } = useContext(NotificationContext);
 
 	useEffect(() => {
+		document.title = loading ? 'Cargando ...' : `Detalle ${product.name}`;
+	});
+
+	useEffect(() => {
 		const documentRef = doc(db, 'products', productId);
 
 		getDoc(documentRef)

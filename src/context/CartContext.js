@@ -1,10 +1,14 @@
 import { useState, useEffect, createContext } from 'react';
 
-export const CartContext = createContext();
+export const CartContext = createContext({
+	cart: [],
+	totalQuantity: 0
+});
 
 export const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState([]);
 	const [totalQuantity, setTotalQuantity] = useState(0);
+	const [total, setTotal] = useState(0);
 
 	console.log(cart);
 
@@ -13,11 +17,30 @@ export const CartProvider = ({ children }) => {
 		setTotalQuantity(totalQty);
 	}, [cart]);
 
+	useEffect(() => {
+		const total = getTotal();
+		setTotal(total);
+	}, [cart]);
+
 	const addItem = (productToAdd) => {
 		if (!isInCart(productToAdd.id)) {
+			// console.log(productToAdd);
 			setCart([...cart, productToAdd]);
 		} else {
-			console.log('Ya está agregado en el carrito.');
+			const cartUpdated = cart.map((product) => {
+				if (product.id === productToAdd.id) {
+					const productUpdated = {
+						...product,
+						quantity: productToAdd.quantity
+					};
+
+					return productUpdated;
+				} else {
+					return product;
+				}
+			});
+
+			setCart(cartUpdated);
 		}
 	};
 
@@ -40,5 +63,31 @@ export const CartProvider = ({ children }) => {
 		return productCounter;
 	};
 
-	return <CartContext.Provider value={{ cart, addItem, removeItem, totalQuantity }}>{children}</CartContext.Provider>;
+	const getTotal = () => {
+		let accu = 0;
+
+		cart.forEach((product) => {
+			accu = product.quantity * product.price;
+		});
+
+		return accu;
+	};
+
+	const clearCart = () => {
+		setCart([]);
+	};
+
+	const getProductQuantity = (id) => {
+		const product = cart.find((prod) => prod.id === id);
+
+		return product?.quantity;
+	};
+
+	return (
+		<CartContext.Provider
+			value={{ cart, addItem, removeItem, isInCart, totalQuantity, total, clearCart, getProductQuantity }}
+		>
+			{children}
+		</CartContext.Provider>
+	);
 };

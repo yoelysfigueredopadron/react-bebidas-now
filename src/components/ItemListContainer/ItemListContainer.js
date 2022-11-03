@@ -14,6 +14,10 @@ const ItemListContainer = () => {
 	const { setNotification } = useContext(NotificationContext);
 
 	useEffect(() => {
+		document.title = 'Listado de productos';
+	}, []);
+
+	useEffect(() => {
 		setLoading(true);
 
 		const collectionRef = categoryId
