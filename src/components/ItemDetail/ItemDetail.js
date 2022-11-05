@@ -19,15 +19,18 @@ function ItemDetail({ id, name, img, category, description, price, stock }) {
 
 		let message;
 
-		quantity === 1
-			? (message = `Se agrego ${quantity} producto ${name} al carrito.`)
-			: (message = `Se agrego ${quantity} productos ${name} al carrito.`);
+		quantity === 1 ? (message = `Se agrego ${quantity} producto ${name} al carrito.`) : (message = `Se agrego ${quantity} productos ${name} al carrito.`);
 
 		addItem(productToAdd);
 		setNotification('success', message);
 	};
 
 	const quantityAdded = getProductQuantity(id);
+
+	const switchRoute = (route, title) => {
+		document.title = title;
+		navigate(route);
+	};
 
 	return (
 		<article className="CardItem">
@@ -45,7 +48,7 @@ function ItemDetail({ id, name, img, category, description, price, stock }) {
 			<footer className="ItemFooter">
 				{stock !== 0 ? <ItemCount onAdd={handleOnAdd} stock={stock} initial={quantityAdded} /> : <p>Sin stock</p>}
 				{isInCart(id) && (
-					<button className="button" onClick={() => navigate('/cart')}>
+					<button className="button" onClick={() => switchRoute('/cart', 'Cart')}>
 						Finalizar compra
 					</button>
 				)}

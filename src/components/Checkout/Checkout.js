@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Checkout() {
 	const [loading, setLoading] = useState(false);
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
+	const [email, setEmail] = useState('');
 	const { cart, total, clearCart } = useContext(CartContext);
 	const { setNotification } = useContext(NotificationContext);
 	const navigate = useNavigate();
@@ -16,7 +19,11 @@ function Checkout() {
 
 		try {
 			const objOrder = {
-				buyer: { name: 'Yoelys Figueredo Padrón', phone: 12345678, email: 'mail@mail.com' },
+				buyer: {
+					name,
+					phone,
+					email
+				},
 				items: cart,
 				total
 			};
@@ -57,7 +64,7 @@ function Checkout() {
 				setNotification('error', 'Hay productos fuera de stock');
 			}
 		} catch (error) {
-			console.log(error);
+			setNotification('error', `Ha ocurrido un error ${error}`);
 		} finally {
 			setLoading(false);
 		}
@@ -68,13 +75,72 @@ function Checkout() {
 	}
 
 	return (
-		<div>
-			<h1>Checkout</h1>
-			<h2>Formulario</h2>
-			{/* agregar un componente form */}
-			<button onClick={createOrder} className="button">
-				Generar Orden
-			</button>
+		<div className="container mt-3">
+			<h1>Formulario Checkout</h1>
+			<form onSubmit={createOrder}>
+				<div className="mb-3 mt-3">
+					<label htmlFor="name">Name:</label>
+					<input
+						type="text"
+						className="form-control"
+						onChange={(e) => {
+							setName(e.target.value);
+						}}
+						placeholder="Enter name"
+						name="name"
+						id="name"
+					/>
+				</div>
+				<div className="mb-3 mt-3">
+					<label htmlFor="phone">Phone:</label>
+					<input
+						type="tel"
+						className="form-control"
+						onChange={(e) => {
+							setPhone(e.target.value);
+						}}
+						placeholder="Enter phone"
+						name="phone"
+						id="phone"
+					/>
+				</div>
+				<div className="mb-3 mt-3">
+					<label htmlFor="email">Email:</label>
+					<input
+						type="email"
+						className="form-control"
+						onChange={(e) => {
+							setEmail(e.target.value);
+						}}
+						placeholder="Enter email"
+						name="email"
+						id="email"
+					/>
+				</div>
+
+				{/* <input
+					type="text"
+					onChange={(e) => {
+						setName(e.target.value);
+					}}
+					placeholder="Enter name"
+				/>
+				<input
+					type="tel"
+					onChange={(e) => {
+						setPhone(e.target.value);
+					}}
+					placeholder="Enter phone"
+				/>
+				<input
+					type="email"
+					onChange={(e) => {
+						setEmail(e.target.value);
+					}}
+					placeholder="Enter email"
+				/> */}
+				<button className="button">Generar Orden</button>
+			</form>
 		</div>
 	);
 }

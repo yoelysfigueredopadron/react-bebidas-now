@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import './Navbar.css';
 import CartWidget from '../CartWidget/CartWidget';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getDocs, collection, query, orderBy } from 'firebase/firestore';
 import { db } from '../../services/firebase';
+import { switchTitle } from '../../adapter/funtionsAdapter';
 
 const Navbar = () => {
 	const [categories, setCategories] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const collectionRef = query(collection(db, 'categories'), orderBy('order'));
@@ -23,19 +26,24 @@ const Navbar = () => {
 		});
 	}, []);
 
+	const switchRoute = (route, title) => {
+		document.title = title;
+		navigate(route);
+	};
+
 	return (
 		<nav className="flex-container-navbar">
-			<Link to={'/'} style={{ textDecoration: 'none' }}>
+			<Link to={'/'} style={{ textDecoration: 'none' }} onClick={() => switchTitle('Listado de productos')}>
 				<h1 className="log-title">BebidasNow</h1>
 			</Link>
 			<div className="topnav">
 				{categories.map((category) => (
-					<Link key={category.id} to={`/category/${category.slug}`} className="button">
+					<button key={category.id} className="button" onClick={() => switchRoute(`/category/${category.slug}`, category.label)}>
 						{category.label}
-					</Link>
+					</button>
 				))}
 			</div>
-			<Link to="/cart">
+			<Link to="/cart" onClick={() => switchTitle('Cart')}>
 				<CartWidget />
 			</Link>
 		</nav>
