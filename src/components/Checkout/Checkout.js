@@ -117,28 +117,6 @@ function Checkout() {
 						id="email"
 					/>
 				</div>
-
-				{/* <input
-					type="text"
-					onChange={(e) => {
-						setName(e.target.value);
-					}}
-					placeholder="Enter name"
-				/>
-				<input
-					type="tel"
-					onChange={(e) => {
-						setPhone(e.target.value);
-					}}
-					placeholder="Enter phone"
-				/>
-				<input
-					type="email"
-					onChange={(e) => {
-						setEmail(e.target.value);
-					}}
-					placeholder="Enter email"
-				/> */}
 				<button className="button">Generar Orden</button>
 			</form>
 		</div>
