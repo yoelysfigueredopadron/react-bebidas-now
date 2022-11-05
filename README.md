@@ -1,70 +1,31 @@
-# Getting Started with Create React App yoe
+# _Proyecto BebidasNow_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+En este proyecto creamos un ecommerce que tendrá como objetivo la venta de productos aplicado a cualquier modelo de negocio.
 
-## Available Scripts
+## Correr el proyecto localmente
 
-In the project directory, you can run:
+$ git clone https://github.com/yoelysfigueredopadron/react-bebidas-now.git $ cd react-bebidas-now $ npm install $ npm start
 
-### `npm start`
+Una vez instaladas todas las dependencias del proyecto desde package.json se deberá crear la estructura de la base de datos en la nube con el servicio Firebase https://console.firebase.google.com/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Debe crear una colección con el nombre products en el cual se agregaran los documentos con los campos (id, name, price, category, img, stock, description). Los id serán creados como una cadena de texto única para identificar cada registro dentro de la colección, los campos name, category, img y description serán te tipo string mientras que price y stock serán de tipo number. A continucación mostramos un ejemplo de un objeto del documento.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+{ id: '0AozTLp4bQ94q4q7tMrn', name: 'Agua Pellegrino', price: 800, category: 'sin-alcohol', img: '/images/agua-pellegrino.jpg', stock: 10, description: 'Se agregará una descripción referente al producto.' }
 
-### `npm test`
+Otra colección que se deberá crear es categories las cual va a contener 3 documentos con 3 campos puediendo agregar más a futuro de necesitar escalar la aplicación. Los nombres de los campos con sus valor label, order y slug.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+El campo laver nos representa la etiqueta del contenido que se mostrará dentro de cada botón en el Navbar en lo que a categorias respecta, slug es la categoría en si que será usada para determinar el filtro por categoria además de rutear la navegación en la aplicación al momento te aplicar los filtros. El campo order es utilizado para ordernar la visualización de los botones de filtros en el Navbar.
 
-### `npm run build`
+- Ejemplo de los campos en un documento de categories
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Key   | Value               |
+| ----- | ------------------- |
+| label | Bebidas sin alcohol |
+| order | 2                   |
+| slug  | sin-alcohol         |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+MIT
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Free Software, Hell Yeah!**
