@@ -10,8 +10,6 @@ export const CartProvider = ({ children }) => {
 	const [totalQuantity, setTotalQuantity] = useState(0);
 	const [total, setTotal] = useState(0);
 
-	console.log(cart);
-
 	useEffect(() => {
 		const totalQty = getQuantity();
 		setTotalQuantity(totalQty);
@@ -24,7 +22,6 @@ export const CartProvider = ({ children }) => {
 
 	const addItem = (productToAdd) => {
 		if (!isInCart(productToAdd.id)) {
-			// console.log(productToAdd);
 			setCart([...cart, productToAdd]);
 		} else {
 			const cartUpdated = cart.map((product) => {
@@ -67,7 +64,7 @@ export const CartProvider = ({ children }) => {
 		let accu = 0;
 
 		cart.forEach((product) => {
-			accu = product.quantity * product.price;
+			accu += product.quantity * product.price;
 		});
 
 		return accu;
@@ -83,11 +80,5 @@ export const CartProvider = ({ children }) => {
 		return product?.quantity;
 	};
 
-	return (
-		<CartContext.Provider
-			value={{ cart, addItem, removeItem, isInCart, totalQuantity, total, clearCart, getProductQuantity }}
-		>
-			{children}
-		</CartContext.Provider>
-	);
+	return <CartContext.Provider value={{ cart, addItem, removeItem, isInCart, totalQuantity, total, clearCart, getProductQuantity }}>{children}</CartContext.Provider>;
 };

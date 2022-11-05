@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyC4wDKcwA6SbRBH2xZ7yZmN98oiFcHbS2w',
-	authDomain: 'backend-bebidas-now.firebaseapp.com',
-	projectId: 'backend-bebidas-now',
-	storageBucket: 'backend-bebidas-now.appspot.com',
-	messagingSenderId: '732613159917',
-	appId: '1:732613159917:web:7e8948d6ea9c79fbf015e4'
+	apiKey: process.env.REACT_APP_apiKey,
+	authDomain: process.env.REACT_APP_authDomain,
+	projectId: process.env.REACT_APP_projectId,
+	storageBucket: process.env.REACT_APP_storageBucket,
+	messagingSenderId: process.env.REACT_APP_messagingSenderId,
+	appId: process.env.REACT_APP_appId
 };
 
 const app = initializeApp(firebaseConfig);

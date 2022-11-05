@@ -1,50 +1,30 @@
 import './ItemListContainer.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import ItemList from '../ItemList/ItemList';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { NotificationContext } from '../../notification/NotificationService';
-import { getDocs, collection, query, where } from 'firebase/firestore';
-import { db } from '../../services/firebase';
+import { getProducts } from '../../services/firebase/firestore/products';
+import { useAsync } from '../hooks/useAsync';
 
 const ItemListContainer = () => {
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(true);
 	const { categoryId } = useParams();
 	const { setNotification } = useContext(NotificationContext);
+
+	const getProductsWithCategory = () => getProducts(categoryId);
+	const { data: products, error, loading } = useAsync(getProductsWithCategory, [categoryId]);
 
 	useEffect(() => {
 		document.title = 'Listado de productos';
 	}, []);
 
-	useEffect(() => {
-		setLoading(true);
-
-		const collectionRef = categoryId
-			? query(collection(db, 'products'), where('category', '==', categoryId))
-			: collection(db, 'products');
-
-		getDocs(collectionRef)
-			.then((response) => {
-				const productsAdapted = response.docs.map((document) => {
-					const data = document.data();
-
-					return { id: document.id, ...data };
-				});
-
-				setProducts(productsAdapted);
-			})
-			.catch((error) => {
-				setNotification('error', `Ha ocurrido un error. ${error}`);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, [categoryId]);
-
 	if (loading) {
 		// to do spinner soon
 		return <h1>Loading ...</h1>;
+	}
+
+	if (error) {
+		return setNotification('error', `Ha ocurrido un error. ${error}`);
 	}
 
 	return (
